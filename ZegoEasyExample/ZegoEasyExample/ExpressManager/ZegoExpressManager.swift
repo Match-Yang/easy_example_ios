@@ -281,7 +281,7 @@ extension ZegoExpressManager: ZegoEventHandler {
     private func processLog(methodName: String, state: Int32, errorCode: Int32) {
         var description = ""
         if (errorCode != 0) {
-            description = "=======\n You can view the exact cause of the error through the link below \n https://doc-zh.zego.im/article/4377?w=\(errorCode)\n======="
+            description = "=======\n You can view the exact cause of the error through the link below \n https://docs.zegocloud.com/article/5547?w=\(errorCode)\n======="
         }
         print("[\(methodName)]: state:\(state) errorCode:\(errorCode)\n\(description)")
     }
