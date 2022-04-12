@@ -69,7 +69,7 @@ When you want to communicate with audio and video, you need to call the join roo
 4. Chat room - host:[.autoPlayAudio, .publishLocalAudio]
 5. Chat room - audience:[.autoPlayAudio]
 
-如下示例代码为通话场景示例:
+The following sample code is an example of a call scenario:
 ```swift
     @IBAction func pressJoinRoom(_ sender: UIButton) {
         
