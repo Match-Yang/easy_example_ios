@@ -17,6 +17,7 @@ class CallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        // set video view
         ZegoExpressManager.shared.setLocalVideoView(renderView: localVideoView)
         
     }
@@ -28,6 +29,7 @@ class CallViewController: UIViewController {
     
     @IBAction func pressCameraButton(_ sender: UIButton) {
         ZegoExpressManager.shared.enableCamera(enable: sender.isSelected)
+        localVideoView.isHidden = !sender.isSelected
         sender.isSelected = !sender.isSelected
     }
     
@@ -40,12 +42,17 @@ class CallViewController: UIViewController {
 extension CallViewController: ZegoExpressManagerHandler {
     func onRoomUserUpdate(udpateType: ZegoUpdateType, userList: [String], roomID: String) {
         for userID in userList {
+            // set video view
             ZegoExpressManager.shared.setRemoteVideoView(userID:userID, renderView: remoteVideoView)
         }
     }
     
     func onRoomUserDeviceUpdate(updateType: ZegoDeviceUpdateType, userID: String, roomID: String) {
-        
+        if userID == ZegoExpressManager.shared.localParticipant?.userID {
+            localVideoView.isHidden = updateType != .cameraOpen
+        } else {
+            remoteVideoView.isHidden = updateType != .cameraOpen
+        }
     }
     
     func onRoomTokenWillExpire(_ remainTimeInSecond: Int32, roomID: String) {

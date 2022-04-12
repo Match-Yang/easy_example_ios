@@ -283,6 +283,6 @@ extension ZegoExpressManager: ZegoEventHandler {
         if (errorCode != 0) {
             description = "=======\n You can view the exact cause of the error through the link below \n https://doc-zh.zego.im/article/4377?w=\(errorCode)\n======="
         }
-//        print("[\(methodName)]: state:\(state) errorCode:\(errorCode)\n\(description)")
+        print("[\(methodName)]: state:\(state) errorCode:\(errorCode)\n\(description)")
     }
 }
