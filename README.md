@@ -96,7 +96,7 @@ If your project needs to use the video communication function, you need to set t
     }
 ```
 
-**setLocalVideoView:**
+**setRemoteVideoView:**
 ```swift
    func onRoomUserUpdate(udpateType: ZegoUpdateType, userList: [String], roomID: String) {
         for userID in userList {
