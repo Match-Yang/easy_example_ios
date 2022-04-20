@@ -16,7 +16,7 @@ ZEGOCLOUD's easy example is a simple wrapper around our RTC product. You can ref
 3. Run the `pod install` command to install all dependencies that are needed.
 
 ### Modify the project configurations
-![](media/16496764650900/16497329091614.jpg)
+![](media/16496764650900/16497329091614.png)
 You need to modify `appID` and `serverSecret` to your own account, which can be obtained in the [ZEGO Admin Console](https://console.zegocloud.com/).
 
 ### Run the sample code
