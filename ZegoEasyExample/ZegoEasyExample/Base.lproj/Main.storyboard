@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,16 +21,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf4-Vw-8Jb">
-                                <rect key="frame" x="165" y="404" width="84" height="74"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="call_accept_icon"/>
-                                <connections>
-                                    <action selector="pressJoinRoom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vfz-gI-tGw"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zrt-qs-n9o">
                                 <rect key="frame" x="50" y="284" width="80" height="30"/>
                                 <constraints>
@@ -74,10 +66,36 @@
                                 <color key="textColor" systemColor="systemPinkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf4-Vw-8Jb">
+                                <rect key="frame" x="75" y="379" width="265" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="camera.fill" catalog="system" title="JoinRoom ( I'm productor )">
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="pressProducerJoinButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RNq-PM-qVe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIn-Pu-Ypf">
+                                <rect key="frame" x="75" y="443" width="265" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="quaternarySystemFillColor"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="person.3.sequence.fill" catalog="system" title="JoinRoom ( I'm director )">
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="pressDirectorJoinButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YaZ-Lc-P3Q"/>
+                                </connections>
+                            </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7c9-XG-Eng"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="zf4-Vw-8Jb" firstAttribute="top" secondItem="MrZ-t0-Plt" secondAttribute="bottom" constant="50" id="17v-XI-88S"/>
                             <constraint firstAttribute="trailing" secondItem="kpM-ea-wBI" secondAttribute="trailing" constant="50" id="1gk-93-wol"/>
                             <constraint firstItem="MrZ-t0-Plt" firstAttribute="top" secondItem="Zrt-qs-n9o" secondAttribute="bottom" constant="10" id="4lj-6O-lRt"/>
                             <constraint firstItem="Zrt-qs-n9o" firstAttribute="top" secondItem="k4Y-q0-JrE" secondAttribute="bottom" constant="240" id="78W-L3-4aX"/>
@@ -87,7 +105,6 @@
                             <constraint firstItem="kpM-ea-wBI" firstAttribute="top" secondItem="84e-hN-VDX" secondAttribute="bottom" constant="80" id="N3U-hy-vIn"/>
                             <constraint firstAttribute="trailing" secondItem="Ytc-WB-rfX" secondAttribute="trailing" constant="50" id="POr-Y3-Klf"/>
                             <constraint firstItem="84e-hN-VDX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="SqW-9B-lXK"/>
-                            <constraint firstItem="zf4-Vw-8Jb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VbB-qR-eR9"/>
                             <constraint firstItem="Ytc-WB-rfX" firstAttribute="leading" secondItem="MrZ-t0-Plt" secondAttribute="trailing" constant="10" id="YA2-Jf-emJ"/>
                             <constraint firstItem="Ytc-WB-rfX" firstAttribute="top" secondItem="kpM-ea-wBI" secondAttribute="bottom" constant="10" id="tEx-pM-1vI"/>
                             <constraint firstItem="kpM-ea-wBI" firstAttribute="top" secondItem="k4Y-q0-JrE" secondAttribute="bottom" constant="240" id="tze-wr-bEp"/>
@@ -102,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-149" y="114"/>
+            <point key="canvasLocation" x="-149.27536231884059" y="113.83928571428571"/>
         </scene>
         <!--Call View Controller-->
         <scene sceneID="qBn-x0-XmD">
@@ -118,67 +135,61 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcE-Pk-qff">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBX-KJ-cpG" userLabel="exit">
+                                        <rect key="frame" x="316" y="726" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="">
+                                            <imageReference key="image" image="top_close" symbolScale="large"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="pressExitButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="2nP-gM-zkL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySJ-3h-IOO" userLabel="record">
+                                        <rect key="frame" x="182" y="751" width="51" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" systemColor="labelColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <imageReference key="image" image="camera.fill" catalog="system" symbolScale="large"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="pressRecordButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="RlG-Rj-uaF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNo-2u-AIh" userLabel="mic">
+                                        <rect key="frame" x="35" y="736" width="71" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="call_mic_open"/>
+                                        <connections>
+                                            <action selector="pressMicButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="IZk-va-cXU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y65-aV-hOe">
-                                <rect key="frame" x="289" y="94" width="95" height="169"/>
-                                <color key="backgroundColor" systemColor="separatorColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="169" id="Y5z-7k-hQy"/>
-                                    <constraint firstAttribute="width" constant="95" id="f1e-TR-46e"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v9-GK-WMs">
-                                <rect key="frame" x="64" y="714.5" width="71" height="61"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="call_camera_open_icon"/>
-                                <connections>
-                                    <action selector="pressCameraButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="VUm-uw-70k"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBX-KJ-cpG">
-                                <rect key="frame" x="165" y="708" width="84" height="74"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="call_hand_up_icon"/>
-                                <connections>
-                                    <action selector="pressHangUpButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="yR0-gq-lzM"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNo-2u-AIh">
-                                <rect key="frame" x="279" y="714.5" width="71" height="61"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="call_mic_open"/>
-                                <connections>
-                                    <action selector="pressMicButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="IZk-va-cXU"/>
-                                </connections>
-                            </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="zGv-H2-ESD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="qcE-Pk-qff" firstAttribute="top" secondItem="ixb-wN-sgE" secondAttribute="top" id="1tT-qG-IAM"/>
-                            <constraint firstItem="4v9-GK-WMs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ixb-wN-sgE" secondAttribute="leading" constant="20" symbolic="YES" id="ElW-6g-LXk"/>
-                            <constraint firstAttribute="trailing" secondItem="Y65-aV-hOe" secondAttribute="trailing" constant="30" id="G2F-h2-2lH"/>
                             <constraint firstItem="qcE-Pk-qff" firstAttribute="leading" secondItem="ixb-wN-sgE" secondAttribute="leading" id="MVP-Ok-Bn4"/>
-                            <constraint firstItem="loX-vz-auh" firstAttribute="top" secondItem="DBX-KJ-cpG" secondAttribute="bottom" constant="80" id="Ncl-tp-8AX"/>
-                            <constraint firstItem="DBX-KJ-cpG" firstAttribute="centerX" secondItem="ixb-wN-sgE" secondAttribute="centerX" id="Rof-n5-nLB"/>
-                            <constraint firstItem="hNo-2u-AIh" firstAttribute="centerY" secondItem="DBX-KJ-cpG" secondAttribute="centerY" id="Squ-SN-nrq"/>
-                            <constraint firstItem="Y65-aV-hOe" firstAttribute="top" secondItem="rg4-Bp-Lky" secondAttribute="bottom" constant="50" id="a2t-l4-hg3"/>
-                            <constraint firstItem="4v9-GK-WMs" firstAttribute="centerY" secondItem="DBX-KJ-cpG" secondAttribute="centerY" id="ivX-3O-sBA"/>
                             <constraint firstAttribute="trailing" secondItem="qcE-Pk-qff" secondAttribute="trailing" id="ny8-wa-tLS"/>
                             <constraint firstAttribute="bottom" secondItem="qcE-Pk-qff" secondAttribute="bottom" id="oT0-TG-zTr"/>
-                            <constraint firstItem="hNo-2u-AIh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DBX-KJ-cpG" secondAttribute="trailing" constant="8" symbolic="YES" id="owp-97-s1y"/>
-                            <constraint firstAttribute="trailing" secondItem="hNo-2u-AIh" secondAttribute="trailing" constant="64" id="s7Y-Cd-hgs"/>
-                            <constraint firstItem="DBX-KJ-cpG" firstAttribute="leading" secondItem="4v9-GK-WMs" secondAttribute="trailing" constant="30" id="wrM-18-KnL"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="cameraButton" destination="4v9-GK-WMs" id="hhZ-UK-LxT"/>
-                        <outlet property="localVideoView" destination="Y65-aV-hOe" id="SDt-zb-qXK"/>
                         <outlet property="micButton" destination="hNo-2u-AIh" id="ZLE-rO-Qxm"/>
-                        <outlet property="remoteVideoView" destination="qcE-Pk-qff" id="OlR-lp-tNB"/>
+                        <outlet property="recordButton" destination="ySJ-3h-IOO" id="PXd-Lf-D8l"/>
+                        <outlet property="videoView" destination="qcE-Pk-qff" id="mRu-pf-CTD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zRm-y8-6Hq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -187,12 +198,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="call_accept_icon" width="60" height="60"/>
-        <image name="call_camera_open_icon" width="47" height="47"/>
-        <image name="call_hand_up_icon" width="60" height="60"/>
         <image name="call_mic_open" width="47" height="47"/>
-        <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="camera.fill" catalog="system" width="128" height="94"/>
+        <image name="person.3.sequence.fill" catalog="system" width="128" height="58"/>
+        <image name="top_close" width="12" height="12"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="quaternarySystemFillColor">
+            <color red="0.45490196078431372" green="0.45490196078431372" blue="0.50196078431372548" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

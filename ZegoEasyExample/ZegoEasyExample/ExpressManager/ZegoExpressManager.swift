@@ -31,6 +31,7 @@ struct ZegoMediaOptions: OptionSet {
     static let autoPlayVideo = ZegoMediaOptions(rawValue: 2)
     static let publishLocalAudio = ZegoMediaOptions(rawValue: 4)
     static let publishLocalVideo = ZegoMediaOptions(rawValue: 8)
+    static let custom_isProducer = ZegoMediaOptions(rawValue: 16)
 }
 
 enum ZegoDeviceUpdateType {
@@ -62,6 +63,9 @@ class ZegoExpressManager : NSObject {
     private var mediaOption: ZegoMediaOptions = [.autoPlayAudio, .autoPlayVideo]
     
     static let shared = ZegoExpressManager()
+
+    var previewConfig = ZegoVideoConfig()
+    var publishConfig = ZegoVideoConfig()
     
     private override init() {
         super.init()
@@ -72,8 +76,52 @@ class ZegoExpressManager : NSObject {
         profile.appID = appID
         // if your scenario is live,you can change to .live.
         // if your scenrio is communication , you can change to .communication
-        profile.scenario = .general
+        profile.scenario = .communication
         ZegoExpressEngine.createEngine(with: profile, eventHandler: self)
+        ZegoExpressEngine.shared().enableHardwareEncoder(true)
+        ZegoExpressEngine.shared().enableHardwareDecoder(true)
+        ZegoExpressEngine.shared().enableHeadphoneAEC(true)
+        ZegoExpressEngine.shared().setCapturePipelineScaleMode(.post)
+        ZegoExpressEngine.shared().useFrontCamera(false)
+        ZegoExpressEngine.shared().setVideoMirrorMode(ZegoVideoMirrorMode.onlyPreviewMirror)
+        
+        // preview config
+        previewConfig.captureResolution = CGSize(width: 2160, height: 3840)
+        previewConfig.encodeResolution = CGSize(width: 2160, height: 3840)
+        previewConfig.fps = 60
+        previewConfig.bitrate = 50000;
+        previewConfig.codecID = ZegoVideoCodecID.IDH265
+        ZegoExpressEngine.shared().setVideoConfig(previewConfig, channel: .aux)
+        
+        // publish config
+        publishConfig.captureResolution = CGSize(width: 2160, height: 3840)
+        publishConfig.encodeResolution = CGSize(width: 720, height: 1280)
+        publishConfig.fps = 60
+        publishConfig.bitrate = 3000;
+        publishConfig.codecID = ZegoVideoCodecID.IDH265
+        ZegoExpressEngine.shared().setVideoConfig(publishConfig, channel: .main)
+
+//        // debug check h265
+//        if ZegoExpressEngine.shared().isVideoEncoderSupported(.IDH265){
+//            print("h265 ✅")
+//        }else{
+//            print("h265 ❌")
+//        }
+        
+        
+        // some engine config for 60 fps
+        let engineConfig = ZegoEngineConfig()
+        engineConfig.advancedConfig = [
+            "video_clock_version": "1",
+            "video_display_fps": "60",
+        ]
+        ZegoExpressEngine.setEngineConfig(engineConfig)
+        
+        
+        // audio
+        let audioConfig = ZegoAudioConfig()
+        audioConfig.codecID = .low3
+        ZegoExpressEngine.shared().setAudioConfig(audioConfig)
     }
     
     func joinRoom(roomID: String, user:ZegoUser, token: String, options: ZegoMediaOptions?) {
@@ -104,12 +152,31 @@ class ZegoExpressManager : NSObject {
         ZegoExpressEngine.shared().loginRoom(roomID, user: user, config: config)
         
         if (mediaOption.contains(.publishLocalAudio) || mediaOption.contains(.publishLocalVideo)) {
-            ZegoExpressEngine.shared().startPublishingStream(participant.streamID)
+            if(mediaOption.contains(.custom_isProducer)){
+                ZegoExpressEngine.shared().startPublishingStream(participant.streamID, channel: .main)
+                let params = "{\"method\":\"express.video.set_video_source\",\"params\":{\"source\":4,\"channel\":1}}"
+                ZegoExpressEngine.shared().callExperimentalAPI(params)
+            }else{
+                ZegoExpressEngine.shared().startPublishingStream(participant.streamID)
+            }
+            
+            
             ZegoExpressEngine.shared().enableCamera(mediaOption.contains(.publishLocalVideo))
             ZegoExpressEngine.shared().muteMicrophone(!mediaOption.contains(.publishLocalAudio))
             participant.camera = mediaOption.contains(.publishLocalVideo)
             participant.mic = mediaOption.contains(.publishLocalAudio)
         }
+    }
+    
+    func startRecording(filePath:String) {
+        let recordConfig = ZegoDataRecordConfig()
+        recordConfig.filePath = filePath
+        recordConfig.recordType = .audioAndVideo
+        ZegoExpressEngine.shared().startRecordingCapturedData(recordConfig, channel: .aux)
+    }
+    
+    func stopRecording()  {
+        ZegoExpressEngine.shared().stopRecordingCapturedData(.aux)
     }
     
     func setLocalVideoView(renderView: UIView) {
@@ -169,7 +236,7 @@ class ZegoExpressManager : NSObject {
             let participant = streamDic[streamID]
             ZegoExpressEngine.shared().startPlayingStream(streamID, canvas: generateCanvas(rendView: participant?.renderView))
             if (!mediaOption.contains(.autoPlayVideo)) {
-                ZegoExpressEngine.shared().mutePlayStreamAudio(true, streamID: streamID)
+                ZegoExpressEngine.shared().mutePlayStreamVideo(true, streamID: streamID)
             }
             if (!mediaOption.contains(.autoPlayVideo)) {
                 ZegoExpressEngine.shared().mutePlayStreamVideo(true, streamID: streamID)
@@ -201,6 +268,12 @@ class ZegoExpressManager : NSObject {
         canvas.viewMode = .aspectFill
         return canvas
     }
+    
+
+    
+    
+    
+    
 }
 
 extension ZegoExpressManager: ZegoEventHandler {
@@ -260,7 +333,7 @@ extension ZegoExpressManager: ZegoEventHandler {
     }
     
     func onPlayerStateUpdate(_ state: ZegoPlayerState, errorCode: Int32, extendedData: [AnyHashable : Any]?, streamID: String) {
-        processLog(methodName: "onPublisherStateUpdate", state: Int32(state.rawValue), errorCode: errorCode)
+        processLog(methodName: "onPlayerStateUpdate", state: Int32(state.rawValue), errorCode: errorCode)
     }
     
     func onNetworkQuality(_ userID: String, upstreamQuality: ZegoStreamQualityLevel, downstreamQuality: ZegoStreamQualityLevel) {
@@ -285,4 +358,28 @@ extension ZegoExpressManager: ZegoEventHandler {
         }
         print("[\(methodName)]: state:\(state) errorCode:\(errorCode)\n\(description)")
     }
+    
+    func onPublisherVideoEncoderChanged(_ fromCodecID: ZegoVideoCodecID, to toCodecID: ZegoVideoCodecID, channel: ZegoPublishChannel) {
+        print("[onPublisherVideoEncoderChanged]: fromCodecID:\(fromCodecID),toCodecID:\(toCodecID)")
+    }
+    
+
 }
+
+
+extension ZegoExpressManager: ZegoDataRecordEventHandler {
+    func onCapturedDataRecordProgressUpdate(_ progress: ZegoDataRecordProgress, config: ZegoDataRecordConfig, channel: ZegoPublishChannel) {
+        print("progress duration \(progress.duration) & file size \(progress.currentFileSize)")
+        
+        
+    }
+    
+    
+    func onCapturedDataRecordStateUpdate(_ state: ZegoDataRecordState, errorCode: Int32, config: ZegoDataRecordConfig, channel: ZegoPublishChannel) {
+        
+        print("Record state confid \(config) & record type \(config.recordType)")
+        
+        
+    }
+}
+

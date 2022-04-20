@@ -17,10 +17,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userIDTextField.text = "id\(Int(arc4random()))"
+        userIDTextField.text = "uid\(Int(arc4random()))"
+        roomIDTextField.text = "roomid\(Int(UInt32.random(in: 0...1000)))"
         // Do any additional setup after loading the view.
     }
-    @IBAction func pressJoinRoom(_ sender: UIButton) {
+
+    
+    @IBAction func pressProducerJoinButton(_ sender: UIButton) {
+        let isProducer = true
+        joinRoom(isProducer)
+    }
+    
+    @IBAction func pressDirectorJoinButton(_ sender: UIButton) {
+        let isProducer = false
+        joinRoom(isProducer)
+    }
+    
+    func joinRoom(_ isProducer: Bool){
         if userIDTextField.text?.count == 0 {
             tipsLabel.text = "Please enter a userID"
             return
@@ -36,16 +49,20 @@ class ViewController: UIViewController {
         let userID = userIDTextField.text ?? ""
         let user = ZegoUser(userID:userID, userName:("\(userID)Test"))
         let token = generateToken(userID: user.userID)
-        let option: ZegoMediaOptions = [.autoPlayVideo, .autoPlayAudio, .publishLocalAudio, .publishLocalVideo]
-        ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
-        
-        presentVideoVC()
+        if(isProducer){
+            let option: ZegoMediaOptions = [ .autoPlayAudio, .publishLocalAudio, .publishLocalVideo, .custom_isProducer]
+            ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
+        }else{
+            let option: ZegoMediaOptions = [.autoPlayVideo, .autoPlayAudio, .publishLocalAudio]
+            ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
+        }
+        presentVideo(isProducer)
     }
-    
-    func presentVideoVC(){
+    func presentVideo(_ isProducer: Bool){
         let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
         self.modalPresentationStyle = .fullScreen
         callVC.modalPresentationStyle = .fullScreen
+        callVC.isProducer = isProducer
         
         // set handler
         ZegoExpressManager.shared.handler = callVC
