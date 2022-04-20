@@ -13,16 +13,23 @@ class CallViewController: UIViewController {
 
     @IBOutlet weak var localVideoView: UIView!
     @IBOutlet weak var remoteVideoView: UIView!
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var micButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        // configUI
+        cameraButton.setImage(UIImage(named: "call_camera_close_icon"), for: .selected)
+        cameraButton.setImage(UIImage(named: "call_camera_open_icon"), for: .normal)
+        micButton.setImage(UIImage(named: "call_mic_close"), for: .selected)
+        micButton.setImage(UIImage(named: "call_mic_open"), for: .normal)
+        
         // set video view
         ZegoExpressManager.shared.setLocalVideoView(renderView: localVideoView)
-        
     }
     
-    @IBAction func pressLeaveRoomButton(_ sender: Any) {
+    @IBAction func pressHangUpButton(_ sender: UIButton) {
         ZegoExpressManager.shared.leaveRoom()
         self.dismiss(animated: true, completion: nil)
     }
