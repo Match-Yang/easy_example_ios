@@ -29,7 +29,7 @@ class CallViewController: UIViewController {
 //        recordButton.setImage(UIImage(named: "waves"), for: .normal)
 
         if isProducer {
-            micButton.isHidden = true
+//            micButton.isHidden = true
         }else{
             recordButton.isHidden = true
         }
