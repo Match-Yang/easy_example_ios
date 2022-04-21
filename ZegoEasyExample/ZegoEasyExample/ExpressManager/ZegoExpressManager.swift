@@ -64,7 +64,7 @@ class ZegoExpressManager : NSObject {
     
     static let shared = ZegoExpressManager()
 
-    var previewConfig = ZegoVideoConfig()
+    var recordConfig = ZegoVideoConfig()
     var publishConfig = ZegoVideoConfig()
     
     private override init() {
@@ -84,16 +84,15 @@ class ZegoExpressManager : NSObject {
         ZegoExpressEngine.shared().setCapturePipelineScaleMode(.post)
         ZegoExpressEngine.shared().useFrontCamera(false)
         ZegoExpressEngine.shared().setVideoMirrorMode(ZegoVideoMirrorMode.onlyPreviewMirror)
-        
-        // preview config
-        previewConfig.captureResolution = CGSize(width: 2160, height: 3840)
-        previewConfig.encodeResolution = CGSize(width: 2160, height: 3840)
-        previewConfig.fps = 60
-        previewConfig.bitrate = 50000;
-        previewConfig.codecID = ZegoVideoCodecID.IDH265
-        ZegoExpressEngine.shared().setVideoConfig(previewConfig, channel: .aux)
-        
-        // publish config
+
+        // audio config
+        let audioConfig = ZegoAudioConfig()
+        audioConfig.codecID = .low3
+        audioConfig.channel = .stereo
+        audioConfig.bitrate = 128
+        ZegoExpressEngine.shared().setAudioConfig(audioConfig)
+
+        // video config
         publishConfig.captureResolution = CGSize(width: 2160, height: 3840)
         publishConfig.encodeResolution = CGSize(width: 720, height: 1280)
         publishConfig.fps = 60
@@ -101,14 +100,6 @@ class ZegoExpressManager : NSObject {
         publishConfig.codecID = ZegoVideoCodecID.IDH265
         ZegoExpressEngine.shared().setVideoConfig(publishConfig, channel: .main)
 
-//        // debug check h265
-//        if ZegoExpressEngine.shared().isVideoEncoderSupported(.IDH265){
-//            print("h265 ✅")
-//        }else{
-//            print("h265 ❌")
-//        }
-        
-        
         // some engine config for 60 fps
         let engineConfig = ZegoEngineConfig()
         engineConfig.advancedConfig = [
@@ -117,11 +108,14 @@ class ZegoExpressManager : NSObject {
         ]
         ZegoExpressEngine.setEngineConfig(engineConfig)
         
-        
-        // audio
-        let audioConfig = ZegoAudioConfig()
-        audioConfig.codecID = .low3
-        ZegoExpressEngine.shared().setAudioConfig(audioConfig)
+        // preview config
+        recordConfig.captureResolution = CGSize(width: 2160, height: 3840)
+        recordConfig.encodeResolution = CGSize(width: 2160, height: 3840)
+        recordConfig.fps = 60
+        recordConfig.bitrate = 50000;
+        recordConfig.codecID = ZegoVideoCodecID.IDH265
+        ZegoExpressEngine.shared().setVideoConfig(recordConfig, channel: .aux)
+       
     }
     
     func joinRoom(roomID: String, user:ZegoUser, token: String, options: ZegoMediaOptions?) {
@@ -156,6 +150,11 @@ class ZegoExpressManager : NSObject {
                 ZegoExpressEngine.shared().startPublishingStream(participant.streamID, channel: .main)
                 let params = "{\"method\":\"express.video.set_video_source\",\"params\":{\"source\":4,\"channel\":1}}"
                 ZegoExpressEngine.shared().callExperimentalAPI(params)
+                
+                let customAudio = ZegoCustomAudioConfig()
+                customAudio.sourceType = .default
+                ZegoExpressEngine.shared().enableCustomAudioIO(true, config:customAudio, channel: .aux)
+                
             }else{
                 ZegoExpressEngine.shared().startPublishingStream(participant.streamID)
             }
