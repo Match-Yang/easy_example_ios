@@ -146,19 +146,18 @@ class ZegoExpressManager : NSObject {
         ZegoExpressEngine.shared().loginRoom(roomID, user: user, config: config)
         
         if (mediaOption.contains(.publishLocalAudio) || mediaOption.contains(.publishLocalVideo)) {
+            ZegoExpressEngine.shared().startPublishingStream(participant.streamID, channel: .main)
+            
+            // aux for record
             if(mediaOption.contains(.custom_isProducer)){
-                ZegoExpressEngine.shared().startPublishingStream(participant.streamID, channel: .main)
+                // record video
                 let params = "{\"method\":\"express.video.set_video_source\",\"params\":{\"source\":4,\"channel\":1}}"
                 ZegoExpressEngine.shared().callExperimentalAPI(params)
-                
+                // record audio
                 let customAudio = ZegoCustomAudioConfig()
                 customAudio.sourceType = .default
                 ZegoExpressEngine.shared().enableCustomAudioIO(true, config:customAudio, channel: .aux)
-                
-            }else{
-                ZegoExpressEngine.shared().startPublishingStream(participant.streamID)
             }
-            
             
             ZegoExpressEngine.shared().enableCamera(mediaOption.contains(.publishLocalVideo))
             ZegoExpressEngine.shared().muteMicrophone(!mediaOption.contains(.publishLocalAudio))
