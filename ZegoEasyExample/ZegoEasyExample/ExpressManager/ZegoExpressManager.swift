@@ -63,7 +63,9 @@ class ZegoExpressManager : NSObject {
     private var mediaOption: ZegoMediaOptions = [.autoPlayAudio, .autoPlayVideo]
     
     static let shared = ZegoExpressManager()
-
+    static let express = ZegoExpressEngine.shared()
+    
+    
     var recordConfig = ZegoVideoConfig()
     var publishConfig = ZegoVideoConfig()
     
@@ -268,11 +270,6 @@ class ZegoExpressManager : NSObject {
         canvas.viewMode = .aspectFill
         return canvas
     }
-    
-
-    
-    
-    
     
 }
 

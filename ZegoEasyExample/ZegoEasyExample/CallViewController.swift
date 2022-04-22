@@ -39,6 +39,17 @@ class CallViewController: UIViewController {
         }
     }
     
+    @IBAction func onTapGestureRecognizerInPreview(_ sender: UITapGestureRecognizer) {
+        
+        let  point = sender.location(in: sender.view)
+        
+        let  x = point.x / (sender.view?.bounds.size.width ?? 0.5);
+        let  y = point.y / (sender.view?.bounds.size.height ?? 0.5);
+        
+        ZegoExpressManager.express.setCameraFocusPointInPreviewX(Float(x), y: Float(y), channel: .main)
+        ZegoExpressManager.express.setCameraExposurePointInPreviewX(Float(x), y: Float(y), channel: .main)
+    }
+    
     @IBAction func pressExitButton(_ sender: UIButton) {
         ZegoExpressManager.shared.leaveRoom()
         self.dismiss(animated: true, completion: nil)
@@ -90,8 +101,7 @@ extension CallViewController: ZegoExpressManagerHandler {
         return tokenResult.token
     }
     
-    
-    
+
     
     
     func getDocumentFilepath(for fileName: String) -> URL {
