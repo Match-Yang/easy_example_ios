@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1762D47BA9553ECF026BFF30 /* Pods_ZegoEasyExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF6E8F9F052F400755AA8719 /* Pods_ZegoEasyExample.framework */; };
 		86470BA827FFE20E00978984 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BA727FFE20E00978984 /* AppDelegate.swift */; };
-		86470BAA27FFE20E00978984 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BA927FFE20E00978984 /* SceneDelegate.swift */; };
 		86470BAC27FFE20E00978984 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BAB27FFE20E00978984 /* ViewController.swift */; };
 		86470BAF27FFE20E00978984 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86470BAD27FFE20E00978984 /* Main.storyboard */; };
 		86470BB127FFE21000978984 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86470BB027FFE21000978984 /* Assets.xcassets */; };
@@ -43,7 +42,6 @@
 		20BC746BE7968C3FF1A248F5 /* Pods-ZegoEasyExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoEasyExample.debug.xcconfig"; path = "Target Support Files/Pods-ZegoEasyExample/Pods-ZegoEasyExample.debug.xcconfig"; sourceTree = "<group>"; };
 		86470BA427FFE20E00978984 /* ZegoEasyExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZegoEasyExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86470BA727FFE20E00978984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		86470BA927FFE20E00978984 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		86470BAB27FFE20E00978984 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		86470BAE27FFE20E00978984 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		86470BB027FFE21000978984 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 				86470BDC28000C7000978984 /* AppCenter */,
 				86470BD727FFE34000978984 /* ExpressManager */,
 				86470BA727FFE20E00978984 /* AppDelegate.swift */,
-				86470BA927FFE20E00978984 /* SceneDelegate.swift */,
 				86470BAB27FFE20E00978984 /* ViewController.swift */,
 				86470BD927FFE34000978984 /* CallViewController.swift */,
 				86470BAD27FFE20E00978984 /* Main.storyboard */,
@@ -356,7 +353,6 @@
 				86470BDA27FFE34000978984 /* ZegoExpressManager.swift in Sources */,
 				86470BA827FFE20E00978984 /* AppDelegate.swift in Sources */,
 				86470BDB27FFE34000978984 /* CallViewController.swift in Sources */,
-				86470BAA27FFE20E00978984 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,7 +544,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -582,7 +578,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
