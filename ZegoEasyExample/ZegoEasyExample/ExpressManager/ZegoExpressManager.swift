@@ -168,7 +168,7 @@ class ZegoExpressManager : NSObject {
         if (mediaOption.contains(.autoPlayVideo) || mediaOption.contains(.autoPlayAudio)) {
             let participant = streamDic[streamID]
             ZegoExpressEngine.shared().startPlayingStream(streamID, canvas: generateCanvas(rendView: participant?.renderView))
-            if (!mediaOption.contains(.autoPlayVideo)) {
+            if (!mediaOption.contains(.autoPlayAudio)) {
                 ZegoExpressEngine.shared().mutePlayStreamAudio(true, streamID: streamID)
             }
             if (!mediaOption.contains(.autoPlayVideo)) {
