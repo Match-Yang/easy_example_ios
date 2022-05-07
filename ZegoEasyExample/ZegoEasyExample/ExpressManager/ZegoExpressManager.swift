@@ -31,7 +31,7 @@ struct ZegoMediaOptions: OptionSet {
     static let autoPlayVideo = ZegoMediaOptions(rawValue: 2)
     static let publishLocalAudio = ZegoMediaOptions(rawValue: 4)
     static let publishLocalVideo = ZegoMediaOptions(rawValue: 8)
-    static let custom_isProducer = ZegoMediaOptions(rawValue: 16)
+    static let custom_isHost = ZegoMediaOptions(rawValue: 16)
 }
 
 enum ZegoDeviceUpdateType {
@@ -66,8 +66,7 @@ class ZegoExpressManager : NSObject {
     static let express = ZegoExpressEngine.shared()
     
     
-    var recordConfig = ZegoVideoConfig()
-    var publishConfig = ZegoVideoConfig()
+    var videoConfig = ZegoVideoConfig()
     
     private override init() {
         super.init()
@@ -78,15 +77,15 @@ class ZegoExpressManager : NSObject {
         profile.appID = appID
         // if your scenario is live,you can change to .live.
         // if your scenrio is communication , you can change to .communication
-        profile.scenario = .communication
+        profile.scenario = .live
         ZegoExpressEngine.createEngine(with: profile, eventHandler: self)
         ZegoExpressEngine.shared().enableHardwareEncoder(true)
         ZegoExpressEngine.shared().enableHardwareDecoder(true)
         ZegoExpressEngine.shared().enableHeadphoneAEC(true)
         ZegoExpressEngine.shared().setCapturePipelineScaleMode(.post)
-        ZegoExpressEngine.shared().useFrontCamera(false)
+        ZegoExpressEngine.shared().useFrontCamera(true)
         ZegoExpressEngine.shared().setVideoMirrorMode(ZegoVideoMirrorMode.onlyPreviewMirror)
-
+        
         // audio config
         let audioConfig = ZegoAudioConfig()
         audioConfig.codecID = .low3
@@ -95,29 +94,12 @@ class ZegoExpressManager : NSObject {
         ZegoExpressEngine.shared().setAudioConfig(audioConfig)
 
         // video config
-        publishConfig.captureResolution = CGSize(width: 2160, height: 3840)
-        publishConfig.encodeResolution = CGSize(width: 720, height: 1280)
-        publishConfig.fps = 60
-        publishConfig.bitrate = 3000;
-        publishConfig.codecID = ZegoVideoCodecID.IDH265
-        ZegoExpressEngine.shared().setVideoConfig(publishConfig, channel: .main)
-
-        // some engine config for 60 fps
-        let engineConfig = ZegoEngineConfig()
-        engineConfig.advancedConfig = [
-            "video_clock_version": "1",
-            "video_display_fps": "60",
-        ]
-        ZegoExpressEngine.setEngineConfig(engineConfig)
-        
-        // preview config
-        recordConfig.captureResolution = CGSize(width: 2160, height: 3840)
-        recordConfig.encodeResolution = CGSize(width: 2160, height: 3840)
-        recordConfig.fps = 60
-        recordConfig.bitrate = 50000;
-        recordConfig.codecID = ZegoVideoCodecID.IDH265
-        ZegoExpressEngine.shared().setVideoConfig(recordConfig, channel: .aux)
-       
+        videoConfig.captureResolution = CGSize(width: 2160, height: 3840)
+        videoConfig.encodeResolution = CGSize(width: 720, height: 1280)
+        videoConfig.fps = 30
+        videoConfig.bitrate = 3000;
+        videoConfig.codecID = ZegoVideoCodecID.IDH265
+        ZegoExpressEngine.shared().setVideoConfig(videoConfig, channel: .main)        
     }
     
     func joinRoom(roomID: String, user:ZegoUser, token: String, options: ZegoMediaOptions?) {
@@ -148,37 +130,12 @@ class ZegoExpressManager : NSObject {
         ZegoExpressEngine.shared().loginRoom(roomID, user: user, config: config)
         
         if (mediaOption.contains(.publishLocalAudio) || mediaOption.contains(.publishLocalVideo)) {
-
-            
-            // aux for record
-            if(mediaOption.contains(.custom_isProducer)){
-                // record video
-                let params = "{\"method\":\"express.video.set_video_source\",\"params\":{\"source\":4,\"channel\":1}}"
-                ZegoExpressEngine.shared().callExperimentalAPI(params)
-                // record audio
-                let customAudio = ZegoCustomAudioConfig()
-                customAudio.sourceType = .default
-                ZegoExpressEngine.shared().enableCustomAudioIO(true, config:customAudio, channel: .aux)
-            }
-            
             ZegoExpressEngine.shared().startPublishingStream(participant.streamID, channel: .main)
-            
             ZegoExpressEngine.shared().enableCamera(mediaOption.contains(.publishLocalVideo))
             ZegoExpressEngine.shared().muteMicrophone(!mediaOption.contains(.publishLocalAudio))
             participant.camera = mediaOption.contains(.publishLocalVideo)
             participant.mic = mediaOption.contains(.publishLocalAudio)
         }
-    }
-    
-    func startRecording(filePath:String) {
-        let recordConfig = ZegoDataRecordConfig()
-        recordConfig.filePath = filePath
-        recordConfig.recordType = .audioAndVideo
-        ZegoExpressEngine.shared().startRecordingCapturedData(recordConfig, channel: .aux)
-    }
-    
-    func stopRecording()  {
-        ZegoExpressEngine.shared().stopRecordingCapturedData(.aux)
     }
     
     func setLocalVideoView(renderView: UIView) {
@@ -197,7 +154,7 @@ class ZegoExpressManager : NSObject {
         streamDic[participant.streamID] = participant
         ZegoExpressEngine.shared().startPreview(generateCanvas(rendView: renderView))
     }
-    
+
     func setRemoteVideoView(userID: String, renderView: UIView) {
         if (roomID.count == 0) {
             print("Error: [setVideoView] You need to join the room first and then set the videoView")
@@ -362,21 +319,3 @@ extension ZegoExpressManager: ZegoEventHandler {
     
 
 }
-
-
-extension ZegoExpressManager: ZegoDataRecordEventHandler {
-    func onCapturedDataRecordProgressUpdate(_ progress: ZegoDataRecordProgress, config: ZegoDataRecordConfig, channel: ZegoPublishChannel) {
-        print("progress duration \(progress.duration) & file size \(progress.currentFileSize)")
-        
-        
-    }
-    
-    
-    func onCapturedDataRecordStateUpdate(_ state: ZegoDataRecordState, errorCode: Int32, config: ZegoDataRecordConfig, channel: ZegoPublishChannel) {
-        
-        print("Record state confid \(config) & record type \(config.recordType)")
-        
-        
-    }
-}
-
