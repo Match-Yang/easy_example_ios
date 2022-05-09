@@ -48,6 +48,10 @@ protocol ZegoExpressManagerHandler: AnyObject {
     
     func onRoomTokenWillExpire(_ remainTimeInSecond: Int32, roomID: String)
     
+    func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String)
+    
+    func onRoomStateUpdate(_ state: ZegoRoomState, errorCode: Int32, extendedData: [AnyHashable : Any]?, roomID: String)
+    
 }
 
 class ZegoExpressManager : NSObject {
@@ -144,14 +148,32 @@ class ZegoExpressManager : NSObject {
         playStream(streamID: participant.streamID)
     }
     
+    func setRoomExtraInfo(_ key: String, value: String) {
+        ZegoExpressEngine.shared().setRoomExtraInfo(value, forKey: key, roomID: roomID, callback: nil)
+    }
+    
     func enableCamera(enable: Bool) {
         ZegoExpressEngine.shared().enableCamera(enable)
         localParticipant?.camera = enable
+        if enable {
+            startPublishStream()
+        } else {
+            if !(localParticipant?.mic ?? false) && !mediaOption.contains(.autoPlayAudio) && !mediaOption.contains(.autoPlayVideo) {
+                stopPublishStream()
+            }
+        }
     }
     
     func enableMic(enable: Bool) {
         ZegoExpressEngine.shared().muteMicrophone(!enable)
         localParticipant?.mic = enable
+        if enable {
+            startPublishStream()
+        } else {
+            if !(localParticipant?.camera ?? false) && !mediaOption.contains(.autoPlayAudio) && !mediaOption.contains(.autoPlayVideo) {
+                stopPublishStream()
+            }
+        }
     }
     
     func switchFrontCamera(isFront: Bool) {
@@ -200,6 +222,17 @@ class ZegoExpressManager : NSObject {
         let canvas = ZegoCanvas(view: rendView)
         canvas.viewMode = .aspectFill
         return canvas
+    }
+    
+    private func startPublishStream() {
+        guard let streamID = localParticipant?.streamID else { return }
+        ZegoExpressEngine.shared().startPublishingStream(streamID)
+    }
+    
+    private func stopPublishStream() {
+        guard let streamID = localParticipant?.streamID else { return }
+        ZegoExpressEngine.shared().stopPlayingStream(streamID)
+        ZegoExpressEngine.shared().stopPreview()
     }
 }
 
@@ -253,6 +286,7 @@ extension ZegoExpressManager: ZegoEventHandler {
     
     func onRoomStateUpdate(_ state: ZegoRoomState, errorCode: Int32, extendedData: [AnyHashable : Any]?, roomID: String) {
         processLog(methodName: "onRoomStateUpdate", state: Int32(state.rawValue), errorCode: errorCode)
+        handler?.onRoomStateUpdate(state, errorCode: errorCode, extendedData: extendedData, roomID: roomID)
     }
     
     func onPublisherStateUpdate(_ state: ZegoPublisherState, errorCode: Int32, extendedData: [AnyHashable : Any]?, streamID: String) {
@@ -276,6 +310,10 @@ extension ZegoExpressManager: ZegoEventHandler {
     
     func onRoomTokenWillExpire(_ remainTimeInSecond: Int32, roomID: String) {
         handler?.onRoomTokenWillExpire(remainTimeInSecond, roomID: roomID)
+    }
+    
+    func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String) {
+        handler?.onRoomExtraInfoUpdate(roomExtraInfoList, roomID: roomID)
     }
     
     private func processLog(methodName: String, state: Int32, errorCode: Int32) {
