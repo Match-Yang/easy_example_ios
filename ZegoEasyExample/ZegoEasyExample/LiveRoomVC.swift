@@ -135,15 +135,21 @@ extension LiveRoomVC: ZegoExpressManagerHandler {
     func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String) {
         for roomExtraInfo in roomExtraInfoList {
             if roomExtraInfo.key == "hostID" {
-                if memberType != .host {
-                    hostID = roomExtraInfo.value
+                hostID = roomExtraInfo.value
+                if hostID == ZegoExpressManager.shared.localParticipant?.userID {
+                    ZegoExpressManager.shared.setLocalVideoView(renderView: hostPreviewView)
+                } else {
                     ZegoExpressManager.shared.setRemoteVideoView(userID: hostID ?? "", renderView: hostPreviewView)
                 }
             } else if roomExtraInfo.key == "coHostID" {
                 coHostID = roomExtraInfo.value
                 if coHostID.count > 0 {
                     speakerPreviewView.isHidden = false
-                    ZegoExpressManager.shared.setRemoteVideoView(userID: coHostID, renderView: speakerPreviewView)
+                    if coHostID == ZegoExpressManager.shared.localParticipant?.userID {
+                        ZegoExpressManager.shared.setLocalVideoView(renderView: speakerPreviewView)
+                    } else {
+                        ZegoExpressManager.shared.setRemoteVideoView(userID: coHostID, renderView: speakerPreviewView)
+                    }
                 } else {
                     speakerPreviewView.isHidden = true
                 }
