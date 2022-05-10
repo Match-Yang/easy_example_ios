@@ -92,6 +92,7 @@ class LiveRoomVC: UIViewController {
     
     @IBAction func takeSeatClick(_ sender: UIButton) {
         if memberType == .listener {
+            if coHostID.count > 0 { return }
             memberType = .speaker
             ZegoExpressManager.shared.setRoomExtraInfo("coHostID", value: ZegoExpressManager.shared.localParticipant?.userID ?? "")
             ZegoExpressManager.shared.setLocalVideoView(renderView: speakerPreviewView)
