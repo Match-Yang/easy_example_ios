@@ -53,8 +53,12 @@ extension CallViewController: ZegoExpressManagerHandler {
             ZegoExpressManager.shared.setRemoteVideoView(userID:userID, renderView: remoteVideoView)
         }
     }
-    
+
     func onRoomUserDeviceUpdate(updateType: ZegoDeviceUpdateType, userID: String, roomID: String) {
+        if (updateType == .micMute || updateType == .micUnmute){
+            return
+        }
+
         if userID == ZegoExpressManager.shared.localParticipant?.userID {
             localVideoView.isHidden = updateType != .cameraOpen
         } else {
