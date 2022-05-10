@@ -45,7 +45,8 @@ end
 ```
 ### Copy the source code
 Copy the `AppCenter.swift` and `ZegoExpressManager.swift` files to your project
-![](media/16496764650900/16496772462634.jpg)
+![](media/16496764650900/16496772462634.png)
+
 ### Method call
 The calling sequence of the SDK interface is as follows:
 createEngine --> joinRoom --> setLocalVideoView/setRemoteVideoView --> leaveRoom
@@ -71,42 +72,124 @@ When you want to communicate with audio and video, you need to call the join roo
 
 The following sample code is an example of a call scenario:
 ```swift
-    @IBAction func pressJoinRoom(_ sender: UIButton) {
-        
-        // join room
+    @IBAction func joinLiveAsHostClick(_ sender: UIButton) {
+        // host join room
         let roomID = "111"
         let user = ZegoUser(userID: "id\(Int(arc4random()))", userName: "Tim")
         let token = generateToken(userID: user.userID)
         let option: ZegoMediaOptions = [.autoPlayVideo, .autoPlayAudio, .publishLocalAudio, .publishLocalVideo]
         ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
-        presentVideoVC()
+        presentLiveVC(true, hostID: user.userID)
     }
 ```
+
+
+```swift
+	@IBAction func joinLiveAsAudienceClick(_ sender: UIButton) {
+		//audience  join room
+    let roomID = "111"
+    let user = ZegoUser(userID: "id\(Int(arc4random()))", userName: "Tom")
+    let token = generateToken(userID: user.userID)
+    let option: ZegoMediaOptions = [.autoPlayVideo, .autoPlayAudio]
+    ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
+    presentLiveVC(false, hostID: nil)
+  }
+```
+   
+
+#### set room extraInfo
+
+If you're the host, you need to set hostID
+
+```swift
+func onRoomStateUpdate(_ state: ZegoRoomState, errorCode: Int32, extendedData: [AnyHashable : Any]?, roomID: String) {
+   if state == .connected {
+      if memberType == .host {
+        ZegoExpressManager.shared.setRoomExtraInfo("hostID", value: ZegoExpressManager.shared.localParticipant?.userID ?? "")
+      }
+   }
+}
+```
+
+
+
+You need to send a mic message if you want a mic
+
+```swift
+@IBAction func takeSeatClick(_ sender: UIButton) {
+  	  ZegoExpressManager.shared.setRoomExtraInfo("coHostID", value: 			  ZegoExpressManager.shared.localParticipant?.userID ?? "")
+      ZegoExpressManager.shared.setLocalVideoView(renderView: speakerPreviewView)
+      ZegoExpressManager.shared.enableCamera(enable: true)
+      ZegoExpressManager.shared.enableMic(enable: true)
+}
+```
+
+
+
 #### set video view
+
 If your project needs to use the video communication function, you need to set the View for displaying the video, call `setLocalVideoView` for the local video, and call `setRemoteVideoView` for the remote video.
 
 **setLocalVideoView:**
+
 ```swift
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+enum LiveMembersType: Int {
+    case host
+    case speaker
+    case listener
+}
+
+var memberType: LiveMembersType = .host
+
+override func viewDidLoad() {
+     super.viewDidLoad()
+     if memberType == .host {
         // set video view
-        ZegoExpressManager.shared.setLocalVideoView(renderView: localVideoView)
-        
-    }
+        ZegoExpressManager.shared.setLocalVideoView(renderView: hostPreviewView)
+     }
+}
 ```
 
 **setRemoteVideoView:**
+
 ```swift
-   func onRoomUserUpdate(udpateType: ZegoUpdateType, userList: [String], roomID: String) {
+func onRoomUserUpdate(udpateType: ZegoUpdateType, userList: [String], roomID: String) {
         for userID in userList {
             // set video view
-            ZegoExpressManager.shared.setRemoteVideoView(userID:userID, renderView: remoteVideoView)
+            if userID == hostID && memberType != .host {
+                ZegoExpressManager.shared.setRemoteVideoView(userID: userID, renderView: hostPreviewView)
         }
-    }
+     }
+ }
 ```
 
+
+
+```swift
+var hostID: String?
+var coHostID: String = ""
+
+func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String) {
+    for roomExtraInfo in roomExtraInfoList {
+      if roomExtraInfo.key == "hostID" {
+       if memberType != .host {
+       hostID = roomExtraInfo.value
+       ZegoExpressManager.shared.setRemoteVideoView(userID: hostID ?? "", renderView: hostPreviewView)
+        }
+      } else if roomExtraInfo.key == "coHostID" {
+        coHostID = roomExtraInfo.value
+        if coHostID.count > 0 {
+          ZegoExpressManager.shared.setRemoteVideoView(userID: coHostID, renderView: speakerPreviewView)
+        } 
+      }
+   }
+}
+```
+
+
+
 #### leave room
+
 When you want to leave the room, you can call the leaveroom interface.
 ```swift
 @IBAction func pressLeaveRoomButton(_ sender: Any) {
