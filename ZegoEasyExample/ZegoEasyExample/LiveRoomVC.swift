@@ -29,6 +29,7 @@ class LiveRoomVC: UIViewController {
             cameraButton.setImage(UIImage.init(named: "call_camera_open_icon"), for: .selected)
             cameraButton.setImage(UIImage.init(named: "call_camera_close_icon"), for: .normal)
             cameraButton.isSelected = ZegoExpressManager.shared.localParticipant?.camera ?? false
+            cameraButton.isHidden = memberType == .listener ? true : false
         }
     }
     @IBOutlet weak var micButton: UIButton! {
@@ -36,6 +37,7 @@ class LiveRoomVC: UIViewController {
             micButton.setImage(UIImage(named: "call_mic_open"), for: .selected)
             micButton.setImage(UIImage(named: "call_mic_close"), for: .normal)
             micButton.isSelected = ZegoExpressManager.shared.localParticipant?.mic ?? false
+            micButton.isHidden = memberType == .listener ? true : false
         }
     }
     
@@ -45,11 +47,7 @@ class LiveRoomVC: UIViewController {
         }
     }
     
-    @IBOutlet weak var bottomView: UIView! {
-        didSet {
-            bottomView.isHidden = memberType == .listener ? true : false
-        }
-    }
+    @IBOutlet weak var bottomView: UIView!
     
     
     var memberType: LiveMembersType = .host
@@ -108,7 +106,8 @@ class LiveRoomVC: UIViewController {
             ZegoExpressManager.shared.enableMic(enable: false)
             speakerPreviewView.isHidden = true
         }
-        bottomView.isHidden = memberType == .listener ? true : false
+        cameraButton.isHidden = memberType == .listener ? true : false
+        micButton.isHidden = memberType == .listener ? true : false
     }
     
     
