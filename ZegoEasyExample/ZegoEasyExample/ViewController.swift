@@ -11,39 +11,109 @@ import ZegoToken
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var tipsLabel: UILabel!
-    @IBOutlet weak var userIDTextField: UITextField!
-    @IBOutlet weak var roomIDTextField: UITextField!
+    var userID: String?
+    var fcmToken: String?
+    var callData: [AnyHashable : Any]?
+    
+    @IBOutlet weak var callUserIDTextField: UITextField!
+    
+    @IBOutlet weak var getUserIDLabel: UILabel! {
+        didSet {
+            getUserIDLabel.isUserInteractionEnabled = true
+            let tapClick: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(getUserIDLabelClick))
+            getUserIDLabel.addGestureRecognizer(tapClick)
+        }
+    }
+    
+    @objc func getUserIDLabelClick() {
+        userID = "\(Int(arc4random() % 999999))"
+        getUserIDLabel.text = userID
+        sendFcmToken()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userIDTextField.text = "id\(Int(arc4random()))"
         // Do any additional setup after loading the view.
     }
-    @IBAction func pressJoinRoom(_ sender: UIButton) {
-        if userIDTextField.text?.count == 0 {
-            tipsLabel.text = "Please enter a userID"
-            return
-        }
-        
-        if roomIDTextField.text?.count == 0 {
-            tipsLabel.text = "Please enter a userID"
-            return
-        }
-        
-        // join room
-        let roomID = roomIDTextField.text ?? ""
-        let userID = userIDTextField.text ?? ""
-        let user = ZegoUser(userID:userID, userName:("\(userID)Test"))
-        let token = generateToken(userID: user.userID)
-        let option: ZegoMediaOptions = [.autoPlayVideo, .autoPlayAudio, .publishLocalAudio, .publishLocalVideo]
-        ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
-        
-        presentVideoVC()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
-    func presentVideoVC(){
-        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+    func sendFcmToken() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let userID = userID,
+              let fcmToken = appDelegate.fcmToken
+        else {
+            return
+        }
+        var request = FcmTokenRequest()
+        request.userID = userID
+        request.token = fcmToken
+        NetworkManager.shareManage.send(request) { requestStatus in
+            if requestStatus?.ret != 0 {
+                print("send fcm token fail!")
+            }
+        }
+    }
+    
+    @IBAction func callUser(_ sender: UIButton) {
+        guard let userID = userID,
+              let callUserID = callUserIDTextField.text
+        else {
+            print("userID & callUserID is nil")
+            return
+        }
+        var request = CallUserRequest()
+        request.targetUserID = callUserID
+        request.callerUserID = userID
+        request.callerUserName = "asdasd"
+        request.callerIconUrl = "qwe"
+        request.roomID = "001"
+        request.callType = "Voice"
+        NetworkManager.shareManage.send(request) { requestStatus in
+            if requestStatus?.ret == 0 {
+                let roomID = "001"
+                let user = ZegoUser(userID:userID, userName:("\(userID)Test"))
+                let token = self.generateToken(userID: user.userID)
+                let option: ZegoMediaOptions = [.autoPlayAudio, .publishLocalAudio]
+                ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
+                self.presentVC(.voice)
+            }
+        }
+    }
+    
+    
+    @IBAction func videoCallClick(_ sender: UIButton) {
+        guard let userID = userID,
+              let callUserID = callUserIDTextField.text
+        else {
+            print("userID & callUserID is nil")
+            return
+        }
+        var request = CallUserRequest()
+        request.targetUserID = callUserID
+        request.callerUserID = userID
+        request.callerUserName = "asdasd"
+        request.callerIconUrl = "qwe"
+        request.roomID = "001"
+        request.callType = "Video"
+        NetworkManager.shareManage.send(request) { requestStatus in
+            if requestStatus?.ret == 0 {
+                // join room
+                let roomID = "001"
+                let user = ZegoUser(userID:userID, userName:("\(userID)Test"))
+                let token = self.generateToken(userID: user.userID)
+                let option: ZegoMediaOptions = [.autoPlayVideo, .autoPlayAudio, .publishLocalAudio, .publishLocalVideo]
+                ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
+                self.presentVC(.video)
+            }
+        }
+    }
+    
+    
+    func presentVC(_ callType: CallType){
+        let callVC = CallViewController.loadCallVC(callType)
         self.modalPresentationStyle = .fullScreen
         callVC.modalPresentationStyle = .fullScreen
         
@@ -56,6 +126,35 @@ class ViewController: UIViewController {
     func generateToken(userID: String) -> String {
         let tokenResult = ZegoToken.generate(AppCenter.appID, userID: userID, secret: AppCenter.serverSecret)
         return tokenResult.token
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        callUserIDTextField.endEditing(true)
+    }
+}
+
+extension ViewController: CallAcceptTipViewDelegate {
+    func tipViewDeclineCall(callType: CallType) {
+        
+    }
+    
+    func tipViewAcceptCall(callType: CallType) {
+        guard let userID = userID else { return }
+        let roomID = "001"
+        let user = ZegoUser(userID:userID, userName:("\(userID)Test"))
+        let token = self.generateToken(userID: user.userID)
+        var option: ZegoMediaOptions?
+        if callType == .video {
+            option = [.autoPlayVideo, .autoPlayAudio, .publishLocalAudio, .publishLocalVideo]
+        } else {
+            option = [.autoPlayAudio, .publishLocalAudio]
+        }
+        ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
+        self.presentVC(callType)
+    }
+    
+    func tipViewDidClik(callType: CallType) {
+        
     }
 }
 

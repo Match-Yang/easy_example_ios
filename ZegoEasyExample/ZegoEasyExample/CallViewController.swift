@@ -11,10 +11,30 @@ import ZegoExpressEngine
 
 class CallViewController: UIViewController {
 
-    @IBOutlet weak var localVideoView: UIView!
-    @IBOutlet weak var remoteVideoView: UIView!
-    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var localVideoView: UIView! {
+        didSet {
+            localVideoView.isHidden = callType == .video ? false : true
+        }
+    }
+    @IBOutlet weak var remoteVideoView: UIView! {
+        didSet {
+            remoteVideoView.isHidden = callType == .video ? false : true
+        }
+    }
+    @IBOutlet weak var cameraButton: UIButton! {
+        didSet {
+            cameraButton.isHidden = callType == .video ? false : true
+        }
+    }
     @IBOutlet weak var micButton: UIButton!
+    
+    var callType: CallType = .voice
+    
+    static func loadCallVC(_ callType: CallType) -> CallViewController {
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
+        callVC.callType = callType
+        return callVC
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +46,9 @@ class CallViewController: UIViewController {
         micButton.setImage(UIImage(named: "call_mic_open"), for: .normal)
         
         // set video view
-        ZegoExpressManager.shared.setLocalVideoView(renderView: localVideoView)
+        if callType == .video {
+            ZegoExpressManager.shared.setLocalVideoView(renderView: localVideoView)
+        }
     }
     
     @IBAction func pressHangUpButton(_ sender: UIButton) {
@@ -47,18 +69,30 @@ class CallViewController: UIViewController {
 }
 
 extension CallViewController: ZegoExpressManagerHandler {
+    func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String) {
+            
+    }
+    
+    func onRoomStateUpdate(_ state: ZegoRoomState, errorCode: Int32, extendedData: [AnyHashable : Any]?, roomID: String) {
+        
+    }
+    
     func onRoomUserUpdate(udpateType: ZegoUpdateType, userList: [String], roomID: String) {
         for userID in userList {
             // set video view
-            ZegoExpressManager.shared.setRemoteVideoView(userID:userID, renderView: remoteVideoView)
+            if callType == .video {
+                ZegoExpressManager.shared.setRemoteVideoView(userID:userID, renderView: remoteVideoView)
+            }
         }
     }
     
     func onRoomUserDeviceUpdate(updateType: ZegoDeviceUpdateType, userID: String, roomID: String) {
-        if userID == ZegoExpressManager.shared.localParticipant?.userID {
-            localVideoView.isHidden = updateType != .cameraOpen
-        } else {
-            remoteVideoView.isHidden = updateType != .cameraOpen
+        if callType == .video {
+            if userID == ZegoExpressManager.shared.localParticipant?.userID {
+                localVideoView.isHidden = updateType != .cameraOpen
+            } else {
+                remoteVideoView.isHidden = updateType != .cameraOpen
+            }
         }
     }
     

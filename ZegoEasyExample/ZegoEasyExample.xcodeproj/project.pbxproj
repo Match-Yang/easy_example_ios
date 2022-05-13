@@ -19,6 +19,15 @@
 		86470BDA27FFE34000978984 /* ZegoExpressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BD827FFE34000978984 /* ZegoExpressManager.swift */; };
 		86470BDB27FFE34000978984 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BD927FFE34000978984 /* CallViewController.swift */; };
 		86470BE228000C7000978984 /* AppCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BDF28000C7000978984 /* AppCenter.swift */; };
+		86E2D7A1282CEEBF000DFAE4 /* CallAcceptTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D79F282CEEBF000DFAE4 /* CallAcceptTipView.swift */; };
+		86E2D7A2282CEEBF000DFAE4 /* CallAcceptTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86E2D7A0282CEEBF000DFAE4 /* CallAcceptTipView.xib */; };
+		86E2D7A4282CF5DD000DFAE4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7A3282CF5DD000DFAE4 /* NetworkManager.swift */; };
+		86E2D7A6282CF5F5000DFAE4 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7A5282CF5F5000DFAE4 /* Request.swift */; };
+		86E2D7A8282CF605000DFAE4 /* RequestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7A7282CF605000DFAE4 /* RequestStatus.swift */; };
+		86E2D7AB282CF66E000DFAE4 /* CallUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7AA282CF66E000DFAE4 /* CallUserRequest.swift */; };
+		86E2D7AD282CF79D000DFAE4 /* ZegoJsonTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7AC282CF79D000DFAE4 /* ZegoJsonTool.swift */; };
+		86E2D7AF282CFB58000DFAE4 /* FcmTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7AE282CFB58000DFAE4 /* FcmTokenRequest.swift */; };
+		86E2D7B5282D0A66000DFAE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86E2D7B4282D0A66000DFAE4 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +64,16 @@
 		86470BD827FFE34000978984 /* ZegoExpressManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZegoExpressManager.swift; sourceTree = "<group>"; };
 		86470BD927FFE34000978984 /* CallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		86470BDF28000C7000978984 /* AppCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCenter.swift; sourceTree = "<group>"; };
+		86E2D790282CAD89000DFAE4 /* ZegoEasyExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZegoEasyExample.entitlements; sourceTree = "<group>"; };
+		86E2D79F282CEEBF000DFAE4 /* CallAcceptTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAcceptTipView.swift; sourceTree = "<group>"; };
+		86E2D7A0282CEEBF000DFAE4 /* CallAcceptTipView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallAcceptTipView.xib; sourceTree = "<group>"; };
+		86E2D7A3282CF5DD000DFAE4 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		86E2D7A5282CF5F5000DFAE4 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		86E2D7A7282CF605000DFAE4 /* RequestStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
+		86E2D7AA282CF66E000DFAE4 /* CallUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallUserRequest.swift; sourceTree = "<group>"; };
+		86E2D7AC282CF79D000DFAE4 /* ZegoJsonTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZegoJsonTool.swift; sourceTree = "<group>"; };
+		86E2D7AE282CFB58000DFAE4 /* FcmTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FcmTokenRequest.swift; sourceTree = "<group>"; };
+		86E2D7B4282D0A66000DFAE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF6E8F9F052F400755AA8719 /* Pods_ZegoEasyExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZegoEasyExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BAFF7287F171B188D67417 /* Pods-ZegoEasyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoEasyExample.release.xcconfig"; path = "Target Support Files/Pods-ZegoEasyExample/Pods-ZegoEasyExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,15 +146,22 @@
 		86470BA627FFE20E00978984 /* ZegoEasyExample */ = {
 			isa = PBXGroup;
 			children = (
+				86E2D790282CAD89000DFAE4 /* ZegoEasyExample.entitlements */,
 				86470BDC28000C7000978984 /* AppCenter */,
 				86470BD727FFE34000978984 /* ExpressManager */,
 				86470BA727FFE20E00978984 /* AppDelegate.swift */,
 				86470BAB27FFE20E00978984 /* ViewController.swift */,
 				86470BD927FFE34000978984 /* CallViewController.swift */,
+				86E2D79F282CEEBF000DFAE4 /* CallAcceptTipView.swift */,
+				86E2D7A0282CEEBF000DFAE4 /* CallAcceptTipView.xib */,
+				86E2D7AA282CF66E000DFAE4 /* CallUserRequest.swift */,
+				86E2D7AE282CFB58000DFAE4 /* FcmTokenRequest.swift */,
+				86E2D7A9282CF636000DFAE4 /* NetWorkManager */,
 				86470BAD27FFE20E00978984 /* Main.storyboard */,
 				86470BB027FFE21000978984 /* Assets.xcassets */,
 				86470BB227FFE21000978984 /* LaunchScreen.storyboard */,
 				86470BB527FFE21100978984 /* Info.plist */,
+				86E2D7B4282D0A66000DFAE4 /* GoogleService-Info.plist */,
 			);
 			path = ZegoEasyExample;
 			sourceTree = "<group>";
@@ -171,6 +197,17 @@
 				86470BDF28000C7000978984 /* AppCenter.swift */,
 			);
 			path = AppCenter;
+			sourceTree = "<group>";
+		};
+		86E2D7A9282CF636000DFAE4 /* NetWorkManager */ = {
+			isa = PBXGroup;
+			children = (
+				86E2D7AC282CF79D000DFAE4 /* ZegoJsonTool.swift */,
+				86E2D7A3282CF5DD000DFAE4 /* NetworkManager.swift */,
+				86E2D7A5282CF5F5000DFAE4 /* Request.swift */,
+				86E2D7A7282CF605000DFAE4 /* RequestStatus.swift */,
+			);
+			path = NetWorkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,7 +318,9 @@
 			files = (
 				86470BB427FFE21000978984 /* LaunchScreen.storyboard in Resources */,
 				86470BB127FFE21000978984 /* Assets.xcassets in Resources */,
+				86E2D7A2282CEEBF000DFAE4 /* CallAcceptTipView.xib in Resources */,
 				86470BAF27FFE20E00978984 /* Main.storyboard in Resources */,
+				86E2D7B5282D0A66000DFAE4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,10 +387,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86E2D7AB282CF66E000DFAE4 /* CallUserRequest.swift in Sources */,
 				86470BE228000C7000978984 /* AppCenter.swift in Sources */,
+				86E2D7A8282CF605000DFAE4 /* RequestStatus.swift in Sources */,
+				86E2D7A6282CF5F5000DFAE4 /* Request.swift in Sources */,
 				86470BAC27FFE20E00978984 /* ViewController.swift in Sources */,
+				86E2D7A1282CEEBF000DFAE4 /* CallAcceptTipView.swift in Sources */,
+				86E2D7A4282CF5DD000DFAE4 /* NetworkManager.swift in Sources */,
 				86470BDA27FFE34000978984 /* ZegoExpressManager.swift in Sources */,
+				86E2D7AF282CFB58000DFAE4 /* FcmTokenRequest.swift in Sources */,
 				86470BA827FFE20E00978984 /* AppDelegate.swift in Sources */,
+				86E2D7AD282CF79D000DFAE4 /* ZegoJsonTool.swift in Sources */,
 				86470BDB27FFE34000978984 /* CallViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,6 +576,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZegoEasyExample/ZegoEasyExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B82BHJ5H89;
@@ -542,13 +589,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = im.zegocloud.ZegoEasyExample;
+				PRODUCT_BUNDLE_IDENTIFIER = im.zego.easyexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -562,6 +609,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZegoEasyExample/ZegoEasyExample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B82BHJ5H89;
@@ -574,13 +622,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = im.zegocloud.ZegoEasyExample;
+				PRODUCT_BUNDLE_IDENTIFIER = im.zego.easyexample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
