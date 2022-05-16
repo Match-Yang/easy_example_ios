@@ -27,7 +27,6 @@
 		86E2D7AB282CF66E000DFAE4 /* CallUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7AA282CF66E000DFAE4 /* CallUserRequest.swift */; };
 		86E2D7AD282CF79D000DFAE4 /* ZegoJsonTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7AC282CF79D000DFAE4 /* ZegoJsonTool.swift */; };
 		86E2D7AF282CFB58000DFAE4 /* FcmTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E2D7AE282CFB58000DFAE4 /* FcmTokenRequest.swift */; };
-		86E2D7B5282D0A66000DFAE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86E2D7B4282D0A66000DFAE4 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +72,6 @@
 		86E2D7AA282CF66E000DFAE4 /* CallUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallUserRequest.swift; sourceTree = "<group>"; };
 		86E2D7AC282CF79D000DFAE4 /* ZegoJsonTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZegoJsonTool.swift; sourceTree = "<group>"; };
 		86E2D7AE282CFB58000DFAE4 /* FcmTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FcmTokenRequest.swift; sourceTree = "<group>"; };
-		86E2D7B4282D0A66000DFAE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF6E8F9F052F400755AA8719 /* Pods_ZegoEasyExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZegoEasyExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BAFF7287F171B188D67417 /* Pods-ZegoEasyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoEasyExample.release.xcconfig"; path = "Target Support Files/Pods-ZegoEasyExample/Pods-ZegoEasyExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,7 +159,6 @@
 				86470BB027FFE21000978984 /* Assets.xcassets */,
 				86470BB227FFE21000978984 /* LaunchScreen.storyboard */,
 				86470BB527FFE21100978984 /* Info.plist */,
-				86E2D7B4282D0A66000DFAE4 /* GoogleService-Info.plist */,
 			);
 			path = ZegoEasyExample;
 			sourceTree = "<group>";
@@ -320,7 +317,6 @@
 				86470BB127FFE21000978984 /* Assets.xcassets in Resources */,
 				86E2D7A2282CEEBF000DFAE4 /* CallAcceptTipView.xib in Resources */,
 				86470BAF27FFE20E00978984 /* Main.storyboard in Resources */,
-				86E2D7B5282D0A66000DFAE4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
