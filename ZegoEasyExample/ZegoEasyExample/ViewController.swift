@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         let userID = userIDTextField.text ?? ""
         let user = ZegoUser(userID:userID, userName:("\(userID)Test"))
         let token = generateToken(userID: user.userID)
-        let option: ZegoMediaOptions = [.autoPlayVideo, .autoPlayAudio, .publishLocalAudio, .publishLocalVideo]
+        let option: ZegoMediaOptions = [.autoPlayAudio, .publishLocalAudio]
         ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
         
         presentVideoVC()

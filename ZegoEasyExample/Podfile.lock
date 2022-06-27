@@ -1,7 +1,7 @@
 PODS:
-  - ZegoExpressEngine (2.17.1.1):
-    - ZegoExpressEngine/Video (= 2.17.1.1)
-  - ZegoExpressEngine/Video (2.17.1.1)
+  - ZegoExpressEngine (2.20.2):
+    - ZegoExpressEngine/Video (= 2.20.2)
+  - ZegoExpressEngine/Video (2.20.2)
   - ZegoToken (1.0.0)
 
 DEPENDENCIES:
@@ -14,7 +14,7 @@ SPEC REPOS:
     - ZegoToken
 
 SPEC CHECKSUMS:
-  ZegoExpressEngine: 718bfb624f56b10ac06705f18f8aba4ab12a4ade
+  ZegoExpressEngine: 7993bd3b1c1a6a0d84eaff8134931266b5564776
   ZegoToken: 8564829c84afb1cf5d6c6102542375773c4b3519
 
 PODFILE CHECKSUM: 194d7c788faf1ae8b6e74d94faa613dccd2cab92

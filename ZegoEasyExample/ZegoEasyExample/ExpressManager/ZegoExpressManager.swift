@@ -180,6 +180,10 @@ class ZegoExpressManager : NSObject {
         ZegoExpressEngine.shared().useFrontCamera(isFront)
     }
     
+    func enableSpeaker(enable: Bool) {
+        ZegoExpressEngine.shared().setAudioRouteToSpeaker(enable)
+    }
+    
     func leaveRoom() {
         participantDic.removeAll()
         streamDic.removeAll()
