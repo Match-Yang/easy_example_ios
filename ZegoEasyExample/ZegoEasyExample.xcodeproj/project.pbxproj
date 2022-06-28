@@ -19,6 +19,7 @@
 		86470BDA27FFE34000978984 /* ZegoExpressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BD827FFE34000978984 /* ZegoExpressManager.swift */; };
 		86470BDB27FFE34000978984 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BD927FFE34000978984 /* CallViewController.swift */; };
 		86470BE228000C7000978984 /* AppCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86470BDF28000C7000978984 /* AppCenter.swift */; };
+		866AE349286A99CF007723C2 /* AudioCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866AE348286A99CF007723C2 /* AudioCallViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		86470BD827FFE34000978984 /* ZegoExpressManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZegoExpressManager.swift; sourceTree = "<group>"; };
 		86470BD927FFE34000978984 /* CallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		86470BDF28000C7000978984 /* AppCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCenter.swift; sourceTree = "<group>"; };
+		866AE348286A99CF007723C2 /* AudioCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCallViewController.swift; sourceTree = "<group>"; };
 		DF6E8F9F052F400755AA8719 /* Pods_ZegoEasyExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZegoEasyExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5BAFF7287F171B188D67417 /* Pods-ZegoEasyExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZegoEasyExample.release.xcconfig"; path = "Target Support Files/Pods-ZegoEasyExample/Pods-ZegoEasyExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +134,7 @@
 				86470BA727FFE20E00978984 /* AppDelegate.swift */,
 				86470BAB27FFE20E00978984 /* ViewController.swift */,
 				86470BD927FFE34000978984 /* CallViewController.swift */,
+				866AE348286A99CF007723C2 /* AudioCallViewController.swift */,
 				86470BAD27FFE20E00978984 /* Main.storyboard */,
 				86470BB027FFE21000978984 /* Assets.xcassets */,
 				86470BB227FFE21000978984 /* LaunchScreen.storyboard */,
@@ -349,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86470BE228000C7000978984 /* AppCenter.swift in Sources */,
+				866AE349286A99CF007723C2 /* AudioCallViewController.swift in Sources */,
 				86470BAC27FFE20E00978984 /* ViewController.swift in Sources */,
 				86470BDA27FFE34000978984 /* ZegoExpressManager.swift in Sources */,
 				86470BA827FFE20E00978984 /* AppDelegate.swift in Sources */,

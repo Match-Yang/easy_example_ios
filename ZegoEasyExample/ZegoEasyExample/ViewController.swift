@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         userIDTextField.text = "id\(Int(arc4random()))"
         // Do any additional setup after loading the view.
     }
+    
     @IBAction func pressJoinRoom(_ sender: UIButton) {
         if userIDTextField.text?.count == 0 {
             tipsLabel.text = "Please enter a userID"
@@ -42,6 +43,30 @@ class ViewController: UIViewController {
         presentVideoVC()
     }
     
+    @IBAction func pressStartAudioCall(_ sender: UIButton) {
+        if userIDTextField.text?.count == 0 {
+            tipsLabel.text = "Please enter a userID"
+            return
+        }
+        
+        if roomIDTextField.text?.count == 0 {
+            tipsLabel.text = "Please enter a userID"
+            return
+        }
+        
+        // join room
+        let roomID = roomIDTextField.text ?? ""
+        let userID = userIDTextField.text ?? ""
+        let user = ZegoUser(userID:userID, userName:("\(userID)Test"))
+        let token = generateToken(userID: user.userID)
+        let option: ZegoMediaOptions = [.autoPlayAudio, .publishLocalAudio]
+        ZegoExpressManager.shared.joinRoom(roomID: roomID, user: user, token: token, options: option)
+        
+        presentAudioVC()
+    }
+    
+    
+    
     func presentVideoVC(){
         let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallViewController") as! CallViewController
         self.modalPresentationStyle = .fullScreen
@@ -50,6 +75,16 @@ class ViewController: UIViewController {
         // set handler
         ZegoExpressManager.shared.handler = callVC
         self.present(callVC, animated: true, completion: nil)
+    }
+    
+    func presentAudioVC(){
+        let audioCallVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AudioCallViewController") as! AudioCallViewController
+        self.modalPresentationStyle = .fullScreen
+        audioCallVC.modalPresentationStyle = .fullScreen
+        
+        // set handler
+        ZegoExpressManager.shared.handler = audioCallVC
+        self.present(audioCallVC, animated: true, completion: nil)
     }
     
     // !!! When your app is ready to go live, remember not to generate the Token on your client; Otherwise, there is a risk of the ServerSecret being exposed!!!
