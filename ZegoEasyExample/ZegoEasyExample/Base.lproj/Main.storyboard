@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -164,29 +164,37 @@
                                     <constraint firstAttribute="width" constant="95" id="f1e-TR-46e"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v9-GK-WMs">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4v9-GK-WMs">
                                 <rect key="frame" x="64" y="714.5" width="71" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="pIk-0d-ZNC"/>
+                                    <constraint firstAttribute="height" constant="61" id="z8b-um-8ks"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="call_camera_open_icon"/>
+                                <buttonConfiguration key="configuration" style="filled" image="call_camera_open_icon" title=" "/>
                                 <connections>
                                     <action selector="pressCameraButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="VUm-uw-70k"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBX-KJ-cpG">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBX-KJ-cpG">
                                 <rect key="frame" x="165" y="708" width="84" height="74"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="call_hand_up_icon"/>
+                                <buttonConfiguration key="configuration" style="plain" image="call_hand_up_icon" imagePlacement="top" title=""/>
                                 <connections>
                                     <action selector="pressHangUpButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="yR0-gq-lzM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNo-2u-AIh">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNo-2u-AIh">
                                 <rect key="frame" x="279" y="714.5" width="71" height="61"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="ZtS-hH-rfh"/>
+                                    <constraint firstAttribute="height" constant="61" id="ogi-ic-rVv"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="call_mic_open"/>
+                                <buttonConfiguration key="configuration" style="filled" image="call_mic_open" title=" "/>
                                 <connections>
                                     <action selector="pressMicButton:" destination="feM-fh-hS3" eventType="touchUpInside" id="IZk-va-cXU"/>
                                 </connections>
@@ -195,7 +203,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="qcE-Pk-qff" firstAttribute="top" secondItem="ixb-wN-sgE" secondAttribute="top" id="1tT-qG-IAM"/>
-                            <constraint firstItem="4v9-GK-WMs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ixb-wN-sgE" secondAttribute="leading" constant="20" symbolic="YES" id="ElW-6g-LXk"/>
+                            <constraint firstItem="hNo-2u-AIh" firstAttribute="leading" secondItem="DBX-KJ-cpG" secondAttribute="trailing" constant="30" id="67d-Ph-slT"/>
                             <constraint firstAttribute="trailing" secondItem="Y65-aV-hOe" secondAttribute="trailing" constant="30" id="G2F-h2-2lH"/>
                             <constraint firstItem="qcE-Pk-qff" firstAttribute="leading" secondItem="ixb-wN-sgE" secondAttribute="leading" id="MVP-Ok-Bn4"/>
                             <constraint firstItem="loX-vz-auh" firstAttribute="top" secondItem="DBX-KJ-cpG" secondAttribute="bottom" constant="80" id="Ncl-tp-8AX"/>
@@ -205,8 +213,6 @@
                             <constraint firstItem="4v9-GK-WMs" firstAttribute="centerY" secondItem="DBX-KJ-cpG" secondAttribute="centerY" id="ivX-3O-sBA"/>
                             <constraint firstAttribute="trailing" secondItem="qcE-Pk-qff" secondAttribute="trailing" id="ny8-wa-tLS"/>
                             <constraint firstAttribute="bottom" secondItem="qcE-Pk-qff" secondAttribute="bottom" id="oT0-TG-zTr"/>
-                            <constraint firstItem="hNo-2u-AIh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DBX-KJ-cpG" secondAttribute="trailing" constant="8" symbolic="YES" id="owp-97-s1y"/>
-                            <constraint firstAttribute="trailing" secondItem="hNo-2u-AIh" secondAttribute="trailing" constant="64" id="s7Y-Cd-hgs"/>
                             <constraint firstItem="DBX-KJ-cpG" firstAttribute="leading" secondItem="4v9-GK-WMs" secondAttribute="trailing" constant="30" id="wrM-18-KnL"/>
                         </constraints>
                     </view>
