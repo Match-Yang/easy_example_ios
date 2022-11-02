@@ -14,6 +14,6 @@ struct AppCenter {
     //[My Projects -> AppID] : https://console.zegocloud.com/project
     
     // Get your ServerSecret from ZEGOCLOUD Console
-    static let serverSecret: String = "<#serverSecret#>"
-    // [My Projects -> project's Edit -> Basic Configurations -> ServerSecret] : https://console.zegocloud.com/project"
+    static let appSign: String = <#appSign#>
+    // [My Projects -> project's Edit -> Basic Configurations -> appSign] : https://console.zegocloud.com/project"
 }

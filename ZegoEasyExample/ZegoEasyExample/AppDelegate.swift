@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
 
         // create engine
-        ZegoExpressManager.shared.createEngine(appID: AppCenter.appID)
+        ZegoExpressManager.shared.createEngine(appID: AppCenter.appID,appSign:AppCenter.appSign)
         return true
     }
 }

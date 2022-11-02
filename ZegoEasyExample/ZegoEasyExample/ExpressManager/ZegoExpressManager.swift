@@ -46,8 +46,6 @@ protocol ZegoExpressManagerHandler: AnyObject {
     
     func onRoomUserDeviceUpdate(updateType: ZegoDeviceUpdateType, userID: String, roomID: String)
     
-    func onRoomTokenWillExpire(_ remainTimeInSecond: Int32, roomID: String)
-    
     func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String)
     
     func onRoomStateUpdate(_ state: ZegoRoomState, errorCode: Int32, extendedData: [AnyHashable : Any]?, roomID: String)
@@ -71,21 +69,19 @@ class ZegoExpressManager : NSObject {
         super.init()
     }
     
-    func createEngine(appID: UInt32) {
+    func createEngine(appID: UInt32, appSign: String) {
         let profile = ZegoEngineProfile()
         profile.appID = appID
+        profile.appSign = appSign
         // if your scenario is live,you can change to .live.
         // if your scenrio is communication , you can change to .communication
         profile.scenario = .general
         ZegoExpressEngine.createEngine(with: profile, eventHandler: self)
     }
     
-    func joinRoom(roomID: String, user:ZegoUser, token: String, options: ZegoMediaOptions?) {
+    func joinRoom(roomID: String, user:ZegoUser, options: ZegoMediaOptions?) {
         participantDic.removeAll()
         streamDic.removeAll()
-        if (token.count == 0) {
-            print("Error: [joinRoom] token is empty, please enter a right token")
-        }
         
         self.roomID = roomID
         
@@ -101,7 +97,6 @@ class ZegoExpressManager : NSObject {
         
         
         let config = ZegoRoomConfig()
-        config.token = token
         // if you need limit participant count, you can change the max member count
         config.maxMemberCount = 0
         config.isUserStatusNotify = true
@@ -312,9 +307,6 @@ extension ZegoExpressManager: ZegoEventHandler {
         }
     }
     
-    func onRoomTokenWillExpire(_ remainTimeInSecond: Int32, roomID: String) {
-        handler?.onRoomTokenWillExpire(remainTimeInSecond, roomID: roomID)
-    }
     
     func onRoomExtraInfoUpdate(_ roomExtraInfoList: [ZegoRoomExtraInfo], roomID: String) {
         handler?.onRoomExtraInfoUpdate(roomExtraInfoList, roomID: roomID)

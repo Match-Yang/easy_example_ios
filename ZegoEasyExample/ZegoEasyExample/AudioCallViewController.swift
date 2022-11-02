@@ -7,7 +7,6 @@
 
 import UIKit
 import ZegoExpressEngine
-import ZegoToken
 
 class AudioCallViewController: UIViewController {
     
@@ -58,17 +57,6 @@ extension AudioCallViewController: ZegoExpressManagerHandler {
     
     func onRoomUserDeviceUpdate(updateType: ZegoDeviceUpdateType, userID: String, roomID: String) {
         
-    }
-    
-    func onRoomTokenWillExpire(_ remainTimeInSecond: Int32, roomID: String) {
-        let token = generateToken(userID: ZegoExpressManager.shared.localParticipant?.userID ?? "")
-        ZegoExpressEngine.shared().renewToken(token, roomID: roomID)
-    }
-    
-    // !!! When your app is ready to go live, remember not to generate the Token on your client; Otherwise, there is a risk of the ServerSecret being exposed!!!
-    func generateToken(userID: String) -> String {
-        let tokenResult = ZegoToken.generate(AppCenter.appID, userID: userID, secret: AppCenter.serverSecret)
-        return tokenResult.token
     }
 
 }
